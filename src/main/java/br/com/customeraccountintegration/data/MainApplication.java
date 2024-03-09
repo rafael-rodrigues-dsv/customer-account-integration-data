@@ -20,7 +20,7 @@ class DataGenerator {
 
   public void generateAndWriteTestData() {
     String fileName = generateOutputFileName();
-    int numberOfItems = 1;
+    int numberOfItems = 2000;
 
     try {
       createOutputDirectory(); // Cria o diretório de saída
@@ -44,7 +44,7 @@ class DataGenerator {
   private String generateOutputFileName() {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
     String dateFormatted = dateFormat.format(new Date());
-    return "src/main/resources/files/output/output_data_" + dateFormatted + ".txt";
+    return "src/main/resources/files/output/generated_data_" + dateFormatted + ".txt";
   }
 
   private void createOutputDirectory() throws IOException {
