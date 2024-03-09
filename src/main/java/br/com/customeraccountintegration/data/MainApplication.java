@@ -1,13 +1,21 @@
-package org.challenge.api;
+package br.com.customeraccountintegration.data;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
-public class Main {
+public class MainApplication {
   private static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
 
   public static void main(String[] args) {
@@ -45,7 +53,7 @@ public class Main {
 
   private static String readBase64FromFile(String filePath) {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-        Main.class.getClassLoader().getResourceAsStream(filePath), StandardCharsets.UTF_8))) {
+        MainApplication.class.getClassLoader().getResourceAsStream(filePath), StandardCharsets.UTF_8))) {
       StringBuilder result = new StringBuilder();
       String line;
 
