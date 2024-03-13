@@ -1,6 +1,7 @@
 package br.com.customeraccountintegration.data.generator;
 
 import br.com.customeraccountintegration.data.file.FileReaderUtil;
+import br.com.customeraccountintegration.data.model.CustomerModel;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -13,26 +14,25 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 
+
 public class DataGenerator {
   private static final Base64.Decoder BASE64_DECODER = Base64.getDecoder();
 
   public void generateAndWriteTestData() {
     String fileName = generateOutputFileName();
-    int numberOfItems = 1;
+    int numberOfItems = 2;
 
     try {
       createOutputDirectory(); // Cria o diretório de saída
 
       try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+
         for (int i = 0; i < numberOfItems; i++) {
-          String line = generateRandomLine();
-          writer.write(line);
-          writer.newLine();
+          CustomerModel customer = CustomerModel.createRandomCustomer();
+          writer.write(customer.getDocumentNumber() + ";" + customer.getEmail() + ";" + customer.getContract());
+          writer.write("|");
         }
         System.out.println("Test data generated successfully!");
-
-        // Copie o arquivo gerado para o diretório resources
-        //FileCopier.copyFileToResources(fileName);
       }
     } catch (IOException e) {
       System.err.println("Error writing to file: " + e.getMessage());
@@ -50,11 +50,8 @@ public class DataGenerator {
     Files.createDirectories(outputDir);
   }
 
-  private String generateRandomLine() {
-    Random random = new Random();
-    long documentNumber = 10000000000L + (long) (random.nextDouble() * 90000000000L);
-    String email = "customer" + (random.nextInt(1000) + 1) + "@email.com";
-    String decodedString = FileReaderUtil.readBase64FromFile("files/input/input_base64.txt");
-    return documentNumber + ";" + email + ";" + decodedString + "|";
+  public static void main(String[] args) {
+    DataGenerator dataGenerator = new DataGenerator();
+    dataGenerator.generateAndWriteTestData();
   }
 }
