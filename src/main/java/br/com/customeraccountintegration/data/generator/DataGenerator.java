@@ -1,6 +1,5 @@
 package br.com.customeraccountintegration.data.generator;
 
-import br.com.customeraccountintegration.data.file.FileCopier;
 import br.com.customeraccountintegration.data.file.FileReaderUtil;
 
 import java.io.BufferedWriter;
@@ -19,7 +18,7 @@ public class DataGenerator {
 
   public void generateAndWriteTestData() {
     String fileName = generateOutputFileName();
-    int numberOfItems = 2000;
+    int numberOfItems = 1;
 
     try {
       createOutputDirectory(); // Cria o diretório de saída
@@ -33,7 +32,7 @@ public class DataGenerator {
         System.out.println("Test data generated successfully!");
 
         // Copie o arquivo gerado para o diretório resources
-        FileCopier.copyFileToResources(fileName);
+        //FileCopier.copyFileToResources(fileName);
       }
     } catch (IOException e) {
       System.err.println("Error writing to file: " + e.getMessage());
